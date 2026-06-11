@@ -1,0 +1,6 @@
+{
+  "name": "Cricket Auction Pro",
+  "description": "A comprehensive digital cricket player auction platform for tournament organizers and team owners.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

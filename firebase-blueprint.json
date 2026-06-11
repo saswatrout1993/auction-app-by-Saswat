@@ -1,0 +1,78 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "A user of the application.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "role": { "type": "string" },
+        "createdAt": { "type": "integer" },
+        "updatedAt": { "type": "integer" }
+      },
+      "required": ["uid", "createdAt", "updatedAt"]
+    },
+    "Auction": {
+      "title": "Auction",
+      "description": "An ongoing or upcoming auction.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "status": { "type": "string", "enum": ["upcoming", "live", "completed"] },
+        "organizerId": { "type": "string" },
+        "currentPlayerId": { "type": "string" },
+        "currentBid": { "type": "integer" },
+        "highestBidderId": { "type": "string" },
+        "createdAt": { "type": "integer" }
+      },
+      "required": ["title", "status", "organizerId", "createdAt"]
+    },
+    "Player": {
+      "title": "Player",
+      "description": "A cricket player registered for auction.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "basePrice": { "type": "integer" },
+        "soldPrice": { "type": "integer" },
+        "teamId": { "type": "string" },
+        "status": { "type": "string", "enum": ["unsold", "sold", "available"] },
+        "auctionId": { "type": "string" }
+      },
+      "required": ["name", "role", "basePrice", "status", "auctionId"]
+    },
+    "Team": {
+      "title": "Team",
+      "description": "A team participating in an auction.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "ownerId": { "type": "string" },
+        "budget": { "type": "integer" },
+        "auctionId": { "type": "string" }
+      },
+      "required": ["name", "ownerId", "budget", "auctionId"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "Stores user profiles."
+    },
+    "/auctions/{auctionId}": {
+      "schema": { "$ref": "#/entities/Auction" },
+      "description": "Stores auction events."
+    },
+    "/auctions/{auctionId}/players/{playerId}": {
+      "schema": { "$ref": "#/entities/Player" },
+      "description": "Players in a specific auction."
+    },
+    "/auctions/{auctionId}/teams/{teamId}": {
+      "schema": { "$ref": "#/entities/Team" },
+      "description": "Teams in a specific auction."
+    }
+  }
+}
